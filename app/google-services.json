@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1041071683311",
+    "firebase_url": "https://test-45fb8-default-rtdb.firebaseio.com",
+    "project_id": "test-45fb8",
+    "storage_bucket": "test-45fb8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1041071683311:android:656ebda007584a66fa0d1a",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKVnnC_IH1x714wIbAN2BL9HjjEXJZ5d0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
