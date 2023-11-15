@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,12 +35,14 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<User> arrayList;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
+    private FirebaseAuth mFirebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mFirebaseAuth = FirebaseAuth.getInstance();
 
         recyclerView = findViewById(R.id.recyclerView); // 아디 연결
         recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
@@ -86,10 +89,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int curId = item.getItemId();
-        switch(curId){
+        switch (curId) {
             case R.id.menu_write:
                 Intent intent = new Intent(getApplicationContext(), WriteActivity.class);
                 startActivity(intent);
+                break;
+
+            case R.id.menu_logout:
+                mFirebaseAuth.signOut();
+                // 로그인 화면으로 이동
+                Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(loginIntent);
+                finish(); // 현재 액티비티 종료
                 break;
             default:
                 break;

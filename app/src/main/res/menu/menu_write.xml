@@ -6,4 +6,10 @@
         android:title="글쓰기"
         android:icon="@drawable/ic_baseline_border_color_24"
         app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/menu_logout"
+        android:title="로그아웃"
+        android:icon="@drawable/people"
+        app:showAsAction="always"/>
 </menu>
