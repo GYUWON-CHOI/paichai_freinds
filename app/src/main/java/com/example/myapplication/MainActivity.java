@@ -11,13 +11,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -44,40 +39,36 @@ public class MainActivity extends AppCompatActivity {
 
         mFirebaseAuth = FirebaseAuth.getInstance();
 
-        recyclerView = findViewById(R.id.recyclerView); // 아디 연결
-        recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        arrayList = new ArrayList<>(); // User 객체를 담을 어레이 리스트 (어댑터쪽으로)
+        arrayList = new ArrayList<>();
 
-        database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
-
-        databaseReference = database.getReference("User"); // DB 테이블 연결
+        database = FirebaseDatabase.getInstance();
+        databaseReference = database.getReference("User");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // 파이어베이스 데이터베이스의 데이터를 받아오는 곳
-                arrayList.clear(); // 기존 배열리스트가 존재하지않게 초기화
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) { // 반복문으로 데이터 List를 추출해냄
-                    User user = snapshot.getValue(User.class); // 만들어뒀던 User 객체에 데이터를 담는다.
-                    arrayList.add(user); // 담은 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
+                arrayList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    User user = snapshot.getValue(User.class);
+                    arrayList.add(user);
                 }
-                adapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침
+                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // 디비를 가져오던중 에러 발생 시
-                Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
+                Log.e("MainActivity", String.valueOf(databaseError.toException()));
             }
         });
 
         adapter = new CustomAdapter(arrayList, this);
-        recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
+        recyclerView.setAdapter(adapter);
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), new LinearLayoutManager(this).getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
-
     }
 
     @Override
@@ -96,7 +87,12 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.menu_logout:
+                // 로그아웃 시 자동 로그인 설정 초기화
+                clearAutoLoginSetting();
+
                 mFirebaseAuth.signOut();
+                Toast.makeText(MainActivity.this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
+
                 // 로그인 화면으로 이동
                 Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(loginIntent);
@@ -107,5 +103,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void clearAutoLoginSetting() {
+        // SharedPreferences를 사용하여 자동 로그인 설정 초기화
+        getSharedPreferences("AutoLoginPrefs", MODE_PRIVATE)
+                .edit()
+                .remove("autoLogin")
+                .apply();
     }
 }
