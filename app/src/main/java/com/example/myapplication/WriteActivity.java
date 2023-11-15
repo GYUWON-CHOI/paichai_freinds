@@ -8,8 +8,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -36,8 +39,21 @@ public class WriteActivity extends AppCompatActivity {
         btn = findViewById(R.id.btn);
         input_write = findViewById(R.id.input_write);
         input_perseon = findViewById(R.id.input_person);
-        input_who = findViewById(R.id.input_who);
         input_detail = findViewById(R.id.input_detail);
+        input_who = findViewById(R.id.input_who); // 추가된 부분
+
+        // 현재 로그인한 사용자의 정보를 가져옵니다.
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        // 사용자가 로그인 중인지 확인합니다.
+        if (currentUser != null) {
+            // 사용자의 전체 이메일 주소를 가져옵니다.
+            String userEmail = currentUser.getEmail();
+
+            // '@' 이후의 부분을 제거하고, 이메일 주소를 input_who TextView에 설정합니다.
+            String userEmailId = userEmail.split("@")[0];
+            input_who.setText(userEmailId); // 수정된 부분
+        }
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
