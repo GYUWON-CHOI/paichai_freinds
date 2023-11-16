@@ -12,6 +12,8 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
     }
     // 뒤로가기 버튼을 눌렀을 때의 동작 처리
     @Override
