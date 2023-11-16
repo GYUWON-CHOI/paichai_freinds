@@ -19,6 +19,17 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     private ArrayList<User> arrayList;
     private Context context;
 
+    // 클릭 이벤트를 처리할 인터페이스 정의
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+    }
+
+    private OnItemClickListener onItemClickListener;
+
+    // 클릭 리스너 설정 메서드
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
+    }
 
     public CustomAdapter(ArrayList<User> arrayList, Context context) {
         this.arrayList = arrayList;
@@ -38,11 +49,20 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         holder.tv_id.setText(arrayList.get(position).getId());
         holder.tv_person.setText(String.valueOf(arrayList.get(position).getPerson()));
         holder.tv_title.setText(arrayList.get(position).getTitle());
+
+        // 클릭 이벤트 설정
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(view, position);
+                }
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        // 삼항 연산자
         return (arrayList != null ? arrayList.size() : 0);
     }
 

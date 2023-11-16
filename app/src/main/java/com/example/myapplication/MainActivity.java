@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -69,6 +70,17 @@ public class MainActivity extends AppCompatActivity {
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), new LinearLayoutManager(this).getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
+
+
+        ((CustomAdapter) adapter).setOnItemClickListener(new CustomAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                // 클릭 이벤트 처리
+                Intent detailIntent = new Intent(MainActivity.this, DetailActivity.class);
+                startActivity(detailIntent);
+                Toast.makeText(MainActivity.this, "클릭된 아이템: " + arrayList.get(position).getId(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
