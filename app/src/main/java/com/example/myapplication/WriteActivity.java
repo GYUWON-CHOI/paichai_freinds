@@ -61,8 +61,7 @@ public class WriteActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 adduser(input_who.getText().toString(), Integer.parseInt(input_perseon.getText().toString()), input_write.getText().toString(), input_detail.getText().toString());
-                Intent intent = new Intent(WriteActivity.this, MainActivity.class);
-                startActivity(intent);
+                finish(); // 현재 엑티비티 종료
 
                 // 토스트 메시지 출력
                 Toast.makeText(WriteActivity.this, "등록되었습니다.", Toast.LENGTH_SHORT).show();
@@ -72,8 +71,6 @@ public class WriteActivity extends AppCompatActivity {
         can.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(WriteActivity.this, MainActivity.class);
-                startActivity(intent);
                 finish();
             }
         });
