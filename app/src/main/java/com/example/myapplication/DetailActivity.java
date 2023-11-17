@@ -11,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,6 +21,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class DetailActivity extends AppCompatActivity {
     private ToggleButton toggleButton;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseReference = database.getReference();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,16 +72,45 @@ public class DetailActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     // 참가 상태일 때의 처리
+                    // 현재 사용자의 ID를 가져옴
+                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                    if (currentUser != null) {
+                        String userId = currentUser.getUid();
+                        String id = currentUser.getEmail();
+                        // '@' 이후의 부분을 제거하고, 이메일 주소를 input_who TextView에 설정합니다.
+                        String userEmailId = id.split("@")[0];
+                        addparty(userId, userEmailId);
+                    }
                     Toast.makeText(DetailActivity.this, "참가되었습니다.", Toast.LENGTH_SHORT).show();
                     // 참가 취소로 변경하려면 여기에 적절한 코드를 추가
                 } else {
                     // 참가 취소 상태일 때의 처리
-                    Toast.makeText(DetailActivity.this, "참가가 취소되었습니다.", Toast.LENGTH_SHORT).show();
+                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                    if (currentUser != null) {
+                        String userId = currentUser.getUid();
+                        deleteparty(userId);
+                    }
+                        Toast.makeText(DetailActivity.this, "참가가 취소되었습니다.", Toast.LENGTH_SHORT).show();
                     // 참가로 변경하려면 여기에 적절한 코드를 추가
                 }
             }
         });
 
+    }
+
+    public void deleteparty(String userId) {
+        String postId = getIntent().getStringExtra("ID");
+        DatabaseReference partyReference = databaseReference.child("Party").child(postId);
+        partyReference.child(userId).removeValue();
+    }
+
+    public void addparty(String userId, String friendId) {
+        // 사용자의 파티 노드에 대한 참조 생성
+        DatabaseReference partyReference = databaseReference.child("Party");
+
+        // 사용자의 파티 노드에 친구의 ID 추가
+        String postId = getIntent().getStringExtra("ID");
+        partyReference.child(postId).child(userId).setValue(friendId);
     }
     // 뒤로가기 버튼을 눌렀을 때의 동작 처리
     @Override
