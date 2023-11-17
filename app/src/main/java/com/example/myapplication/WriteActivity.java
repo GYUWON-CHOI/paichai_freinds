@@ -16,6 +16,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.UUID;
+
 public class WriteActivity extends AppCompatActivity {
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -77,9 +79,24 @@ public class WriteActivity extends AppCompatActivity {
         });
     }
 
-    public void adduser(String id, int person, String title, String detail){
+    public void adduser(String id, int person, String title, String detail) {
         User user = new User(id, person, title, detail);
         databaseReference.child("User").child(id).setValue(user);
+
+        // 현재 사용자의 ID를 가져옴
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+            addparty(userId, id);
+        }
+    }
+
+    public void addparty(String userId, String friendId) {
+        // 사용자의 파티 노드에 대한 참조 생성
+        DatabaseReference partyReference = databaseReference.child("Party");
+
+        // 사용자의 파티 노드에 친구의 ID 추가
+        partyReference.child(friendId).child(userId).setValue(friendId);
     }
 
     // 뒤로가기 버튼을 눌렀을 때의 동작 처리
