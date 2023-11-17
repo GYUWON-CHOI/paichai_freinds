@@ -77,6 +77,10 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(View view, int position) {
                 // 클릭 이벤트 처리
                 Intent detailIntent = new Intent(MainActivity.this, DetailActivity.class);
+                // 클릭된 아이템의 ID를 가져오기
+                String clickedItemId = arrayList.get(position).getId();
+                // DetailActivity로 전달하기 위해 Intent에 추가
+                detailIntent.putExtra("ID", clickedItemId);
                 startActivity(detailIntent);
                 Toast.makeText(MainActivity.this, "클릭된 아이템: " + arrayList.get(position).getId(), Toast.LENGTH_SHORT).show();
             }
