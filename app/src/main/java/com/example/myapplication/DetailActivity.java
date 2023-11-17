@@ -6,7 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,7 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class DetailActivity extends AppCompatActivity {
-
+    private ToggleButton toggleButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +61,22 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+        // ToggleButton 초기화
+        toggleButton = findViewById(R.id.join);
+        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    // 참가 상태일 때의 처리
+                    Toast.makeText(DetailActivity.this, "참가되었습니다.", Toast.LENGTH_SHORT).show();
+                    // 참가 취소로 변경하려면 여기에 적절한 코드를 추가
+                } else {
+                    // 참가 취소 상태일 때의 처리
+                    Toast.makeText(DetailActivity.this, "참가가 취소되었습니다.", Toast.LENGTH_SHORT).show();
+                    // 참가로 변경하려면 여기에 적절한 코드를 추가
+                }
+            }
+        });
 
     }
     // 뒤로가기 버튼을 눌렀을 때의 동작 처리
