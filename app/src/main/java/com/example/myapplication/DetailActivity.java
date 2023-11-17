@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
@@ -23,6 +24,9 @@ public class DetailActivity extends AppCompatActivity {
     private ToggleButton toggleButton;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = database.getReference();
+    // 추가된 코드 부분
+    private boolean isToggleChecked = false; // Toggle 버튼의 상태를 저장할 변수
+    private SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,12 +68,23 @@ public class DetailActivity extends AppCompatActivity {
                 // 데이터를 불러오는 중에 에러가 발생한 경우
             }
         });
+        // SharedPreferences 초기화
+        sharedPreferences = getPreferences(MODE_PRIVATE);
 
         // ToggleButton 초기화
         toggleButton = findViewById(R.id.join);
+        // 이전에 저장된 상태를 불러와서 설정
+        isToggleChecked = sharedPreferences.getBoolean("toggle_state", false);
+        toggleButton.setChecked(isToggleChecked);
+
         toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // 상태가 변경될 때마다 SharedPreferences에 저장
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("toggle_state", isChecked);
+                editor.apply();
+
                 if (isChecked) {
                     // 참가 상태일 때의 처리
                     // 현재 사용자의 ID를 가져옴
