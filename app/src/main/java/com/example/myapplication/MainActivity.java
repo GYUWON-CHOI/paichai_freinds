@@ -15,11 +15,11 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -48,15 +48,43 @@ public class MainActivity extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference("User");
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+
+        // ChildEventListener를 사용하여 데이터 변경 시 화면 갱신
+        databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                arrayList.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    User user = snapshot.getValue(User.class);
-                    arrayList.add(user);
-                }
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, String previousChildName) {
+                User user = dataSnapshot.getValue(User.class);
+                arrayList.add(user);
                 adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, String previousChildName) {
+                // 데이터가 변경된 경우
+                User updatedUser = dataSnapshot.getValue(User.class);
+                int index = getItemIndex(updatedUser);
+                if (index != -1) {
+                    // 리스트에서 해당 아이템을 찾아 업데이트
+                    arrayList.set(index, updatedUser);
+                    adapter.notifyItemChanged(index);
+                }
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                // 데이터가 삭제된 경우
+                User removedUser = dataSnapshot.getValue(User.class);
+                int index = getItemIndex(removedUser);
+                if (index != -1) {
+                    // 리스트에서 해당 아이템을 찾아 삭제
+                    arrayList.remove(index);
+                    adapter.notifyItemRemoved(index);
+                }
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, String previousChildName) {
+                // 데이터 위치가 변경된 경우
             }
 
             @Override
@@ -70,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), new LinearLayoutManager(this).getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
-
 
         ((CustomAdapter) adapter).setOnItemClickListener(new CustomAdapter.OnItemClickListener() {
             @Override
@@ -127,5 +154,14 @@ public class MainActivity extends AppCompatActivity {
                 .edit()
                 .remove("autoLogin")
                 .apply();
+    }
+
+    private int getItemIndex(User user) {
+        for (int i = 0; i < arrayList.size(); i++) {
+            if (arrayList.get(i).getId().equals(user.getId())) {
+                return i;
+            }
+        }
+        return -1;
     }
 }

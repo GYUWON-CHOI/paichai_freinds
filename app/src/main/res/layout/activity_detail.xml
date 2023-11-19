@@ -103,6 +103,21 @@
         android:textOn="참가 취소"
         android:textOff="참가"
         android:checked="false" />
+
+    <!-- 추가: 수정, 삭제 버튼 -->
+
+    <Button
+        android:id="@+id/edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="수정" />
+
+    <Button
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="삭제" />
+
   </LinearLayout>
 
 </LinearLayout>

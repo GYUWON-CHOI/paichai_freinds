@@ -1,7 +1,4 @@
 package com.example.myapplication;
-
-// id : 학번, pw : 인원, userName : 방제, profile : 프로필 사진, detail: 내용
-
 public class User {
     private String profile;
     private String id;

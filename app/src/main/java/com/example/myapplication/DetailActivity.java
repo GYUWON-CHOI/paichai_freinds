@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,9 +26,9 @@ public class DetailActivity extends AppCompatActivity {
     private ToggleButton toggleButton;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = database.getReference();
-    // 추가된 코드 부분
-    private boolean isToggleChecked = false; // Toggle 버튼의 상태를 저장할 변수
+    private boolean isToggleChecked = false;
     private SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,20 +36,15 @@ public class DetailActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Firebase 데이터베이스 레퍼런스 가져오기
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        // 가져올 글의 ID (예: "pp_01")
-        String postId = getIntent().getStringExtra("ID");;
+        String postId = getIntent().getStringExtra("ID");
 
-        // 글의 데이터를 불러오기
-        databaseReference.child("User").child(postId).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child("User").child(postId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    // 데이터가 존재하는 경우
                     User user = dataSnapshot.getValue(User.class);
 
-                    // detail_activity.xml에 있는 뷰들에 데이터 설정
                     TextView titleTextView = findViewById(R.id.detail_write);
                     TextView personTextView = findViewById(R.id.detail_input_person);
                     TextView whoTextView = findViewById(R.id.detail_input_who);
@@ -57,7 +54,6 @@ public class DetailActivity extends AppCompatActivity {
                     personTextView.setText(String.valueOf(user.getPerson()));
                     whoTextView.setText(user.getId());
                     detailTextView.setText(user.getDetail());
-                    // 필요한 데이터를 사용하도록 로직을 추가하세요.
                 } else {
                     // 데이터가 없는 경우 또는 에러 처리
                 }
@@ -68,49 +64,72 @@ public class DetailActivity extends AppCompatActivity {
                 // 데이터를 불러오는 중에 에러가 발생한 경우
             }
         });
-        // SharedPreferences 초기화
+
         sharedPreferences = getPreferences(MODE_PRIVATE);
 
-        // ToggleButton 초기화
         toggleButton = findViewById(R.id.join);
-        // 이전에 저장된 상태를 불러와서 설정
         isToggleChecked = sharedPreferences.getBoolean("toggle_state", false);
         toggleButton.setChecked(isToggleChecked);
 
         toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // 상태가 변경될 때마다 SharedPreferences에 저장
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean("toggle_state", isChecked);
                 editor.apply();
 
                 if (isChecked) {
-                    // 참가 상태일 때의 처리
-                    // 현재 사용자의 ID를 가져옴
                     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                     if (currentUser != null) {
                         String userId = currentUser.getUid();
                         String id = currentUser.getEmail();
-                        // '@' 이후의 부분을 제거하고, 이메일 주소를 input_who TextView에 설정합니다.
                         String userEmailId = id.split("@")[0];
                         addparty(userId, userEmailId);
                     }
                     Toast.makeText(DetailActivity.this, "참가되었습니다.", Toast.LENGTH_SHORT).show();
-                    // 참가 취소로 변경하려면 여기에 적절한 코드를 추가
                 } else {
-                    // 참가 취소 상태일 때의 처리
                     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                     if (currentUser != null) {
                         String userId = currentUser.getUid();
                         deleteparty(userId);
+                        deleteUser(postId); // 글 삭제 메서드 호출
                     }
-                        Toast.makeText(DetailActivity.this, "참가가 취소되었습니다.", Toast.LENGTH_SHORT).show();
-                    // 참가로 변경하려면 여기에 적절한 코드를 추가
+                    Toast.makeText(DetailActivity.this, "참가가 취소되었습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
+        // 수정 버튼에 대한 처리
+        Button editButton = findViewById(R.id.edit);
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailActivity.this, EditActivity.class);
+                intent.putExtra("ID", postId);
+                startActivity(intent);
+            }
+        });
+
+        // 삭제 버튼에 대한 처리
+        Button deleteButton = findViewById(R.id.delete);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                if (currentUser != null) {
+                    String userId = currentUser.getUid();
+                    deleteparty(userId);
+                    deleteUser(postId); // 글 삭제 메서드 호출
+                    Toast.makeText(DetailActivity.this, "글이 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                    finish(); // 현재 엑티비티 종료
+                }
+            }
+        });
+    }
+
+    private void deleteUser(String postId) {
+        DatabaseReference userReference = databaseReference.child("User").child(postId);
+        userReference.removeValue();
     }
 
     public void deleteparty(String userId) {
@@ -120,19 +139,16 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     public void addparty(String userId, String friendId) {
-        // 사용자의 파티 노드에 대한 참조 생성
         DatabaseReference partyReference = databaseReference.child("Party");
-
-        // 사용자의 파티 노드에 친구의 ID 추가
         String postId = getIntent().getStringExtra("ID");
         partyReference.child(postId).child(userId).setValue(friendId);
     }
-    // 뒤로가기 버튼을 눌렀을 때의 동작 처리
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            finish(); // 현재 엑티비티 종료
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
