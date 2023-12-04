@@ -125,8 +125,8 @@ public class MainActivity extends AppCompatActivity {
         int curId = item.getItemId();
         switch (curId) {
             case R.id.menu_write:
-                Intent intent = new Intent(getApplicationContext(), WriteActivity.class);
-                startActivity(intent);
+                Intent writeIntent = new Intent(getApplicationContext(), WriteActivity.class);
+                startActivity(writeIntent);
                 break;
 
             case R.id.menu_logout:
@@ -141,12 +141,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(loginIntent);
                 finish(); // 현재 액티비티 종료
                 break;
+
+            case R.id.action_chat:
+                // 채팅 아이콘 클릭 시 채팅 화면으로 이동
+                Intent chatIntent = new Intent(MainActivity.this, PartyChatActivity.class);
+                startActivity(chatIntent);
+                break;
+
             default:
                 break;
         }
-
         return super.onOptionsItemSelected(item);
     }
+
 
     private void clearAutoLoginSetting() {
         // SharedPreferences를 사용하여 자동 로그인 설정 초기화
