@@ -2,6 +2,9 @@ package com.example.myapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -23,8 +27,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
 
+public class MainActivity extends AppCompatActivity {
+    private Main_bottomchart main_bottomchart;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -33,21 +38,54 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private FirebaseAuth mFirebaseAuth;
 
+    //하단 메뉴 선언 과 Fragment 선언
+    private Frag1 frag1;
+    private Frag2 frag2;
+    private Frag3 frag3;
+    private BottomNavigationView bottomNavigationView;
+    private FragmentManager fm;
+    private FragmentTransaction ft;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+            mFirebaseAuth = FirebaseAuth.getInstance();
+            recyclerView = findViewById(R.id.recyclerView);
+            recyclerView.setHasFixedSize(true);
+            layoutManager = new LinearLayoutManager(this);
+            recyclerView.setLayoutManager(layoutManager);
+            arrayList = new ArrayList<>();
 
-        mFirebaseAuth = FirebaseAuth.getInstance();
+            database = FirebaseDatabase.getInstance();
+            databaseReference = database.getReference("User");
 
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        arrayList = new ArrayList<>();
+            //하단메뉴 fragement 화면전환
+        bottomNavigationView = findViewById(R.id.bottomNavi_main);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.menu_chat:
+                    Intent intent = new Intent(getApplicationContext(), WriteActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.menu_home:
+                    setFrag(1);
+                    break;
+                case R.id.menu_profile:
+                    setFrag(2);
+                    break;
+            }
+            return false;
+        });
 
-        database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference("User");
+        frag1 = new Frag1();
+        frag2 = new Frag2();
+        frag3 = new Frag3();
+
+
+
 
         // ChildEventListener를 사용하여 데이터 변경 시 화면 갱신
         databaseReference.addChildEventListener(new ChildEventListener() {
@@ -113,7 +151,27 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+//    바텀화면 프레그먼트 교체 실행
+    private void setFrag(int n){
+        fm= getSupportFragmentManager();
+        ft = fm.beginTransaction();
 
+
+        switch (n){
+            case 0:
+                ft.replace(R.id.main_frame,frag1);
+                ft.commit();
+                break;
+            case 1:
+                ft.replace(R.id.main_frame,frag2);
+                ft.commit();
+                break;
+            case 2:
+                ft.replace(R.id.main_frame,frag3);
+                ft.commit();
+                break;
+        }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_write, menu);
@@ -164,4 +222,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return -1;
     }
+
 }
