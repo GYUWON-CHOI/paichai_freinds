@@ -67,14 +67,12 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.menu_chat:
-                    Intent intent = new Intent(getApplicationContext(), WriteActivity.class);
-                    startActivity(intent);
+                    Intent chat = new Intent(getApplicationContext(), ChatRoomListActivity.class);
+                    startActivity(chat);
                     break;
                 case R.id.menu_home:
-                    setFrag(1);
-                    break;
-                case R.id.menu_profile:
-                    setFrag(2);
+                    Intent home = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(home);
                     break;
             }
             return false;
@@ -198,12 +196,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(loginIntent);
                 finish(); // 현재 액티비티 종료
-                break;
-
-            case R.id.action_chat:
-                // 채팅 아이콘 클릭 시 채팅 화면으로 이동
-                Intent chatIntent = new Intent(MainActivity.this, PartyChatActivity.class);
-                startActivity(chatIntent);
                 break;
 
             default:
