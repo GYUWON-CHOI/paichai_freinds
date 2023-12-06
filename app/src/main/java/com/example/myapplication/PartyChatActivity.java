@@ -42,7 +42,7 @@ public class PartyChatActivity extends AppCompatActivity {
         sendButton = findViewById(R.id.sendButton);
 
         chatMessages = new ArrayList<>();
-        chatAdapter = new ChatAdapter(this, R.layout.item_chat, chatMessages);
+        chatAdapter = new ChatAdapter(this, R.layout.list_item2, chatMessages);
         listView.setAdapter(chatAdapter);
 
         partyId = "yourPartyId"; // 실제 파티 ID로 초기화해야 합니다.

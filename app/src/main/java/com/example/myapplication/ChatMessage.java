@@ -26,7 +26,8 @@ public class ChatMessage {
 
     @Override
     public String toString() {
-        return "[" + sender + "]: " + message;
+        return sender + "\n " + message;
     }
 }
+
 

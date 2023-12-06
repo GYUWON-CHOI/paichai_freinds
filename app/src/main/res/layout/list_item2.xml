@@ -5,13 +5,12 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <!-- Add textSize attribute to adjust text size -->
     <TextView
         android:id="@+id/senderTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="26dp"
-        android:text=""
+        android:text="Sender"
         android:textStyle="bold"
         android:textColor="#000000"/>
 
@@ -22,6 +21,7 @@
         android:layout_height="wrap_content"
         android:textSize="26dp"
         android:text="Message"
+        android:background="@drawable/chat_buble"
         android:textStyle="bold"
         android:textColor="#000000"/>
 

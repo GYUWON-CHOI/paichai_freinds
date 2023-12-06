@@ -33,14 +33,17 @@ public class ChatAdapter extends ArrayAdapter<ChatMessage> {
         ChatMessage chatMessage = getItem(position);
 
         if (chatMessage != null) {
+            TextView senderTextView = convertView.findViewById(R.id.senderTextView);
             TextView messageTextView = convertView.findViewById(R.id.messageTextView);
 
-            // 메시지 텍스트뷰에 발신자와 메시지를 함께 표시
-            messageTextView.setText(chatMessage.toString());
+            // 발신자와 메시지를 각각의 텍스트뷰에 표시
+            senderTextView.setText(chatMessage.getSender());
+            messageTextView.setText(chatMessage.getMessage());
         }
 
         return convertView;
     }
+
 
     @Override
     public ChatMessage getItem(int position) {
