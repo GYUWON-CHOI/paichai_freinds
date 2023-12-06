@@ -132,8 +132,8 @@ public class MainActivity extends AppCompatActivity {
         adapter = new CustomAdapter(arrayList, this);
         recyclerView.setAdapter(adapter);
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), new LinearLayoutManager(this).getOrientation());
-        recyclerView.addItemDecoration(dividerItemDecoration);
+//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), new LinearLayoutManager(this).getOrientation());
+//        recyclerView.addItemDecoration(dividerItemDecoration);
 
         ((CustomAdapter) adapter).setOnItemClickListener(new CustomAdapter.OnItemClickListener() {
             @Override
