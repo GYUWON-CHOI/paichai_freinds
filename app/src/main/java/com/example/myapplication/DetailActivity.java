@@ -14,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -104,13 +106,15 @@ public class DetailActivity extends AppCompatActivity {
 
                         addparty(userId, userEmailId);
                     }
-                    Toast.makeText(DetailActivity.this, "참가되었습니다.", Toast.LENGTH_SHORT).show();
                 } else {
                     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                     if (currentUser != null) {
                         String userId = currentUser.getUid();
+                        String authorId = user != null ? user.getId() : "";
+                        String userEmailId = authorId != null ? authorId.split("@")[0] : "";
+                        String dataPath = "Party/" + userEmailId+ "/" + userId;
+                        deleteData(dataPath);
                     }
-                    Toast.makeText(DetailActivity.this, "참가가 취소되었습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -167,10 +171,22 @@ public class DetailActivity extends AppCompatActivity {
                 }
             }
         });
+    }
 
+    private void deleteData(String dataPath) {
+        DatabaseReference dataRef = databaseReference.child(dataPath);
 
-
-
+        dataRef.removeValue()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                    }
+                });
     }
 
     private void deleteUser(String postId) {

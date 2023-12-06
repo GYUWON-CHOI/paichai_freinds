@@ -145,7 +145,6 @@ public class MainActivity extends AppCompatActivity {
                 // DetailActivity로 전달하기 위해 Intent에 추가
                 detailIntent.putExtra("ID", clickedItemId);
                 startActivity(detailIntent);
-                Toast.makeText(MainActivity.this, "클릭된 아이템: " + arrayList.get(position).getId(), Toast.LENGTH_SHORT).show();
             }
         });
     }
