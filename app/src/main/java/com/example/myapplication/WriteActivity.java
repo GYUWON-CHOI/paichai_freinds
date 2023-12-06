@@ -61,7 +61,6 @@ public class WriteActivity extends AppCompatActivity {
                             input_detail.getText().toString()
                     );
                     finish();
-                    Toast.makeText(WriteActivity.this, "등록되었습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
