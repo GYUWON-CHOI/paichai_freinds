@@ -79,7 +79,7 @@
         </activity>
         <activity
             android:name=".RegisterActivity"
-            android:label="RegisterActivity" />
+            android:label="회원가입" />
     </application>
 
 </manifest>

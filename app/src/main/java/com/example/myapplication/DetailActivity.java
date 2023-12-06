@@ -89,35 +89,11 @@ public class DetailActivity extends AppCompatActivity {
         toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean("toggle_state", isChecked);
-                editor.apply();
-
-                if (isChecked) {
-                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                    if (currentUser != null) {
-                        String userId = currentUser.getUid();  // Firebase 사용자의 UID를 가져옴
-                        String email = currentUser.getEmail();  // Firebase 사용자의 이메일 주소를 가져옴
-
-                        // 이메일 주소에서 "@" 이후의 부분을 제외하고 사용자 아이디로 사용
-                        String userEmailId = email != null ? email.split("@")[0] : "";
-
-                        addparty(userId, userEmailId);
-                    }
-                    Toast.makeText(DetailActivity.this, "참가되었습니다.", Toast.LENGTH_SHORT).show();
-                } else {
-                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                    if (currentUser != null) {
-                        String userId = currentUser.getUid();
-                    }
-                    Toast.makeText(DetailActivity.this, "참가가 취소되었습니다.", Toast.LENGTH_SHORT).show();
-                }
+                handleToggleChange(isChecked);
             }
         });
 
-
-
-// 수정 버튼에 대한 처리
+        // 수정 버튼에 대한 처리
         Button editButton = findViewById(R.id.edit);
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,6 +117,7 @@ public class DetailActivity extends AppCompatActivity {
                 }
             }
         });
+
         // 삭제 버튼에 대한 처리
         Button deleteButton = findViewById(R.id.delete);
         deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -167,10 +144,6 @@ public class DetailActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
-
     }
 
     private void deleteUser(String postId) {
@@ -198,5 +171,65 @@ public class DetailActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    // ToggleButton의 OnCheckedChangeListener 내부에서 호출되는 메서드
+    private void handleToggleChange(boolean isChecked) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("toggle_state", isChecked);
+        editor.apply();
+
+        if (isChecked) {
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            if (currentUser != null) {
+                String userId = currentUser.getUid();  // Firebase 사용자의 UID를 가져옴
+                String email = currentUser.getEmail();  // Firebase 사용자의 이메일 주소를 가져옴
+
+                // 이메일 주소에서 "@" 이후의 부분을 제외하고 사용자 아이디로 사용
+                String userEmailId = email != null ? email.split("@")[0] : "";
+
+                // 여기서 isUserInParty 메서드 호출
+                isUserInParty(userId, userEmailId);
+            }
+        } else {
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            if (currentUser != null) {
+                String userId = currentUser.getUid();
+            }
+            Toast.makeText(DetailActivity.this, "참가가 취소되었습니다.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // isUserInParty 메서드
+    private void isUserInParty(String userId, String userEmailId) {
+        String postId = getIntent().getStringExtra("ID");
+        DatabaseReference partyReference = databaseReference.child("Party").child(postId);
+
+        // 해당 사용자의 파티 참가 여부 확인
+        partyReference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                boolean isInParty = dataSnapshot.exists();
+                if (!isInParty) {
+                    Toast.makeText(DetailActivity.this, "파티에 참가해야 채팅이 가능합니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    // 채팅 가능한 경우에는 채팅 화면으로 이동
+                    enterChatRoom();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // 에러 처리
+            }
+        });
+    }
+
+    // 채팅 화면으로 이동하는 메서드
+    private void enterChatRoom() {
+        Intent intent = new Intent(DetailActivity.this, PartyChatActivity.class);
+        // 필요에 따라 데이터를 전달하려면 아래 주석을 참고하세요.
+        // intent.putExtra("key", value);
+        startActivity(intent);
     }
 }
