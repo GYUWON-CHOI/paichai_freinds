@@ -147,10 +147,6 @@ public class HomeActivity extends AppCompatActivity {
                 }
                 break;
 
-            case R.id.menu_movie:
-                Intent movieIntent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(movieIntent);
-                break;
 
             default:
                 break;

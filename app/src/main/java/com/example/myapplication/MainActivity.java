@@ -208,10 +208,6 @@ public class MainActivity extends AppCompatActivity {
                 finish(); // 현재 액티비티 종료
                 break;
 
-            case R.id.menu_movie:
-                Intent movieIntent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(movieIntent);
-                break;
 
             default:
                 break;

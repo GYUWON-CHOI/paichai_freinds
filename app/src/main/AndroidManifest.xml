@@ -15,6 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
+
         <activity
             android:name=".HomeActivity"
             android:exported="false">
@@ -94,14 +95,10 @@
         <activity
             android:name=".RegisterActivity"
             android:label="회원가입" />
-        <activity android:name=".Frag3Activity">
-        </activity>
-        <activity android:name=".Profile">
-        </activity>
-        <activity android:name=".PasswordChangeActivity">
-        </activity>
-        <activity android:name=".NickMessageChangeActivity">
-        </activity>
+        <activity android:name=".Frag3Activity"></activity>
+        <activity android:name=".Profile"></activity>
+        <activity android:name=".PasswordChangeActivity"></activity>
+        <activity android:name=".NickMessageChangeActivity"></activity>
     </application>
 
 </manifest>
