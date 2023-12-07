@@ -50,6 +50,24 @@ public class FoodActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng mf = new LatLng(36.317072, 127.369098);
         LatLng km = new LatLng(36.317031, 127.369335);
         LatLng en = new LatLng(36.316970, 127.369572);
+        LatLng 맘스터치 = new LatLng(36.322466, 127.370470);
+        LatLng 내가찜한닭 = new LatLng(36.322678, 127.370417);
+        LatLng 본죽 = new LatLng( 36.323251, 127.370448);
+        LatLng 큰맘할매순대국 = new LatLng(36.323361, 127.370465);
+        LatLng 핵밥 = new LatLng(36.322011, 127.370675);
+        LatLng 고봉민김밥 = new LatLng(36.322426, 127.370665);
+        LatLng 로충칭마라탕 = new LatLng(36.322597, 127.370605);
+        LatLng 봉구스밥버거 = new LatLng(36.324057, 127.370487);
+        LatLng 롯데리아 = new LatLng( 36.324214, 127.370504);
+        LatLng 해도 = new LatLng(36.322596, 127.370791);
+        LatLng 부대통령뚝배기 = new LatLng(36.322717, 127.370835);
+        LatLng 김밥천국 = new LatLng(36.322421, 127.371017);
+        LatLng 행컵 = new LatLng(36.322573, 127.371245);
+        LatLng 뜸들이다 = new LatLng(36.322423, 127.371290);
+        LatLng 경남성 = new LatLng(36.322207, 127.369980);
+        LatLng 프랭크버거 = new LatLng(36.323392, 127.370448);
+        LatLng 응급실국물떡볶이 = new LatLng(36.323125, 127.370474);
+
 
         // Add a marker at Baejae University and move the camera
         mMap.addMarker(new MarkerOptions().position(pic).title("그림같은집"));
@@ -61,6 +79,23 @@ public class FoodActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position(mf).title("부부식당"));
         mMap.addMarker(new MarkerOptions().position(km).title("금래원"));
         mMap.addMarker(new MarkerOptions().position(en).title("은혜식당"));
+        mMap.addMarker(new MarkerOptions().position(맘스터치).title("맘스터치"));
+        mMap.addMarker(new MarkerOptions().position(내가찜한닭).title("내가찜한닭"));
+        mMap.addMarker(new MarkerOptions().position(본죽).title("본죽"));
+        mMap.addMarker(new MarkerOptions().position(큰맘할매순대국).title("큰맘할매순대국"));
+        mMap.addMarker(new MarkerOptions().position(핵밥).title("핵밥"));
+        mMap.addMarker(new MarkerOptions().position(고봉민김밥).title("고봉민김밥"));
+        mMap.addMarker(new MarkerOptions().position(로충칭마라탕).title("로충칭마라탕"));
+        mMap.addMarker(new MarkerOptions().position(봉구스밥버거).title("봉구스밥버거"));
+        mMap.addMarker(new MarkerOptions().position(롯데리아).title("롯데리아"));
+        mMap.addMarker(new MarkerOptions().position(해도).title("해도"));
+        mMap.addMarker(new MarkerOptions().position(부대통령뚝배기).title("부대통령뚝배기"));
+        mMap.addMarker(new MarkerOptions().position(김밥천국).title("김밥천국"));
+        mMap.addMarker(new MarkerOptions().position(행컵).title("행컵"));
+        mMap.addMarker(new MarkerOptions().position(뜸들이다).title("뜸들이다"));
+        mMap.addMarker(new MarkerOptions().position(경남성).title("경남성"));
+        mMap.addMarker(new MarkerOptions().position(프랭크버거).title("프랭크버거"));
+        mMap.addMarker(new MarkerOptions().position(응급실국물떡볶이).title("응급실국물떡볶이"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(baejaeUniversity, 18f)); // Adjust the zoom level as needed
     }
 }
