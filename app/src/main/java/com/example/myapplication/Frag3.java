@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,7 +21,13 @@ public class Frag3 extends Fragment {
     //하단 메뉴바
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.frag3, container, false);
-
+        TextView nicknameTextView = view.findViewById(R.id.nickname);
         return view;
+    }
+    //profile로 이동
+    public void onProfileButtonClick(View view){
+        Intent intent =new Intent(getActivity(),Profile.class);
+        startActivity(intent);
+
     }
 }

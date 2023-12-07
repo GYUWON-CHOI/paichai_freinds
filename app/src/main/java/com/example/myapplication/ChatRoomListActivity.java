@@ -43,6 +43,10 @@ public class ChatRoomListActivity extends AppCompatActivity {
                     Intent home = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(home);
                     break;
+                case R.id.menu_profile:
+                    Intent profile = new Intent(getApplicationContext(), Frag3Activity.class);
+                    startActivity(profile);
+                    break;
             }
             return false;
         });

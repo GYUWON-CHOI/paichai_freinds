@@ -79,7 +79,15 @@
         </activity>
         <activity
             android:name=".RegisterActivity"
-            android:label="회원가입" />
+            android:label="RegisterActivity" />
+        <activity android:name=".Frag3Activity">
+        </activity>
+        <activity android:name=".Profile">
+        </activity>
+        <activity android:name=".PasswordChangeActivity">
+        </activity>
+        <activity android:name=".NickMessageChangeActivity">
+        </activity>
     </application>
 
 </manifest>
