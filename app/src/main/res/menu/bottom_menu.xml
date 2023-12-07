@@ -11,7 +11,7 @@
         android:id="@+id/menu_party"
         android:enabled="true"
         android:icon="@drawable/ic_celebration"
-        android:title="Home"
+        android:title="Party"
         app:showAsAction="always"/>
     <item
         android:id="@+id/menu_chat"

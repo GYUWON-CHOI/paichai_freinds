@@ -16,10 +16,10 @@
 
         <LinearLayout
             android:id="@+id/movieRankLayout"
-            android:layout_width="237dp"
+            android:layout_width="347dp"
             android:layout_height="160dp"
             android:layout_marginRight="20dp"
-            android:background="@drawable/coner"
+            android:background="@drawable/bumble"
             android:orientation="vertical">
 
             <TextView
@@ -33,28 +33,11 @@
                 android:textSize="25dp" />
 
             <ImageView
+                android:id="@+id/mv"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:id="@+id/mv"
-                android:src="@drawable/ic_baseline_movie_24"
-                android:layout_gravity="center"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/searchRankLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="160dp"
-            android:background="@drawable/coner">
-
-            <TextView
-                android:id="@+id/serk"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:text="검색 순위"
-                android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_movie_24" />
         </LinearLayout>
 
     </LinearLayout>
@@ -70,7 +53,8 @@
             android:layout_width="160dp"
             android:layout_height="160dp"
             android:layout_marginRight="20dp"
-            android:background="@drawable/coner">
+            android:background="@drawable/bumble"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/food"
@@ -81,13 +65,21 @@
                 android:text="주변 식당"
                 android:textColor="@color/black"
                 android:textSize="25dp" />
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_fastfood_24"
+                android:layout_marginTop="20dp"/>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/nearbyPCBangLayout"
-            android:layout_width="167dp"
+            android:layout_width="166dp"
             android:layout_height="160dp"
-            android:background="@drawable/coner">
+            android:background="@drawable/bumble"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/game"
@@ -97,7 +89,14 @@
                 android:layout_marginTop="5dp"
                 android:text="주변 PC방"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:textSize="25dp" />
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_computer_24"
+                android:layout_marginTop="20dp"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -110,20 +109,27 @@
 
         <LinearLayout
             android:id="@+id/somethingLayout"
-            android:layout_width="349dp"
+            android:layout_width="346dp"
             android:layout_height="160dp"
             android:layout_marginRight="20dp"
-            android:background="@drawable/coner">
+            android:background="@drawable/bumble"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/aaa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:text="파티 참가하기"
                 android:textColor="@color/black"
                 android:textSize="25dp" />
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_group_add_24" />
         </LinearLayout>
 
     </LinearLayout>

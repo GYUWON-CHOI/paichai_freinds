@@ -203,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
 
                 // 로그인 화면으로 이동
-                Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+                Intent loginIntent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(loginIntent);
                 finish(); // 현재 액티비티 종료
                 break;

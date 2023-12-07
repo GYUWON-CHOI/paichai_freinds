@@ -42,7 +42,6 @@ public class HomeActivity extends AppCompatActivity {
 
         // 각 항목의 LinearLayout을 찾아옵니다.
         LinearLayout movieRankLayout = findViewById(R.id.movieRankLayout);
-        LinearLayout searchRankLayout = findViewById(R.id.searchRankLayout);
         LinearLayout nearbyRestaurantLayout = findViewById(R.id.nearbyRestaurantLayout);
         LinearLayout nearbyPCBangLayout = findViewById(R.id.nearbyPCBangLayout);
         LinearLayout somethingLayout = findViewById(R.id.somethingLayout);
@@ -57,15 +56,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 //
-        searchRankLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 검색 순위 항목을 클릭했을 때의 동작을 정의합니다.
-                Intent intent = new Intent(HomeActivity.this, MovieActivity.class);
-                startActivity(intent);
-            }
-        });
-
         nearbyRestaurantLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,6 +90,12 @@ public class HomeActivity extends AppCompatActivity {
                     Intent chat = new Intent(getApplicationContext(), ChatRoomListActivity.class);
                     startActivity(chat);
                     break;
+
+                case R.id.menu_party:
+                    Intent party = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(party);
+                    break;
+
                 case R.id.menu_home:
                     Intent home = new Intent(getApplicationContext(), HomeActivity.class);
                     startActivity(home);
