@@ -1,6 +1,7 @@
 // java/com.example.myapplication/NickMessageChangeActivity.java
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -21,13 +23,36 @@ public class NickMessageChangeActivity extends AppCompatActivity {
     private EditText nickEditText, statusEditText;
     private Button changeNickButton, changeStatusButton;
     private TextView currentNickTextView, currentStatusTextView;
-
     private DatabaseReference databaseReference;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chang_nick_message);
+        bottomNavigationView = findViewById(R.id.bottomNavi_main_info);
+
+        // 하단 네비게이션 아이템 선택 리스너 설정
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.menu_chat:
+                    Intent chat = new Intent(getApplicationContext(), ChatRoomListActivity.class);
+                    startActivity(chat);
+                    break;
+                case R.id.menu_home:
+                    Intent home = new Intent(getApplicationContext(), HomeActivity.class);
+                    startActivity(home);
+                    break;
+                case R.id.menu_party:
+                    Intent party = new Intent(getApplicationContext(),MainActivity.class);
+                    break;
+                case R.id.menu_profile:
+                    Intent profile = new Intent(getApplicationContext(), Frag3Activity.class);
+                    startActivity(profile);
+                    break;
+            }
+            return false;
+        });
 
         nickEditText = findViewById(R.id.nickEditText);
         statusEditText = findViewById(R.id.statusEditText);
