@@ -90,7 +90,7 @@ public class PasswordChangeActivity extends AppCompatActivity {
         String confirmPassword = confirmPasswordEditText.getText().toString();
 
         if (currentPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
-            Toast.makeText(this, "모든 필드를 입력하세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "빈칸을 채우세요", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -137,7 +137,7 @@ public class PasswordChangeActivity extends AppCompatActivity {
         String newEmail = newEmailEditText.getText().toString();
 
         if (currentPassword.isEmpty() || newEmail.isEmpty()) {
-            Toast.makeText(this, "모든 필드를 입력하세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "빈칸을 채우세요.", Toast.LENGTH_SHORT).show();
             return;
         }
 
