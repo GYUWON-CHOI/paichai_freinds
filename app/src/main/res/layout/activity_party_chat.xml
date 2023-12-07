@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <!-- ListView -->
-    <ListView
-        android:id="@+id/listView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/messageInputLayout"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp"
-        android:stackFromBottom="true"
-        android:transcriptMode="alwaysScroll"/>
+    android:layout_height="match_parent"
+    android:background="#B0D6FF">
 
     <!-- LinearLayout for EditText and Button -->
     <LinearLayout
@@ -20,7 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="15dp"> <!-- 여기에 하단 여백 추가 -->
 
         <!-- EditText with weight 1 to take available space -->
         <EditText
@@ -29,7 +21,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="8dp"
-            android:hint="메세지를 입력하세요"/>
+            android:hint="메세지를 입력하세요"
+            android:layout_marginEnd="8dp"/> <!-- 여기에 여백 추가 -->
 
         <!-- Add some margin between EditText and Button -->
         <Button
@@ -37,6 +30,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/round_button"
             android:text="전송"/>
     </LinearLayout>
+
+    <!-- 여기에 중간 여백 추가 -->
+    <View
+        android:id="@+id/middleSpace"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@id/listView"
+        android:layout_alignParentTop="true"/>
+
+    <!-- ListView -->
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/messageInputLayout"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="20dp"
+        android:stackFromBottom="true"
+        android:transcriptMode="alwaysScroll"/>
 </RelativeLayout>
