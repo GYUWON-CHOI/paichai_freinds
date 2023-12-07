@@ -70,7 +70,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // 주변 PC방 항목을 클릭했을 때의 동작을 정의합니다.
-                Intent intent = new Intent(HomeActivity.this, MovieActivity.class);
+                Intent intent = new Intent(HomeActivity.this, PcActivity.class);
                 startActivity(intent);
             }
         });

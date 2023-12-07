@@ -32,6 +32,12 @@
         -->
 
         <activity
+            android:name=".PcActivity"
+            android:exported="false">
+
+        </activity>
+
+        <activity
             android:name=".FoodActivity"
             android:exported="false">
 
