@@ -93,7 +93,7 @@
         </activity>
         <activity
             android:name=".RegisterActivity"
-            android:label="RegisterActivity" />
+            android:label="회원가입" />
         <activity android:name=".Frag3Activity">
         </activity>
         <activity android:name=".Profile">
