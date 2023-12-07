@@ -9,12 +9,14 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -24,6 +26,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -47,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentTransaction ft;
 
 
-
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
             database = FirebaseDatabase.getInstance();
             databaseReference = database.getReference("User");
 
+
+
             //하단메뉴 fragement 화면전환
         bottomNavigationView = findViewById(R.id.bottomNavi_main);
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -71,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(chat);
                     break;
                 case R.id.menu_home:
-                    Intent home = new Intent(getApplicationContext(), MainActivity.class);
+                    Intent home = new Intent(getApplicationContext(), HomeActivity.class);
                     startActivity(home);
                     break;
                 case R.id.menu_profile:
@@ -200,6 +206,11 @@ public class MainActivity extends AppCompatActivity {
                 Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(loginIntent);
                 finish(); // 현재 액티비티 종료
+                break;
+
+            case R.id.menu_movie:
+                Intent movieIntent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(movieIntent);
                 break;
 
             default:

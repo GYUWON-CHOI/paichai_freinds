@@ -91,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
             if (currentUser != null) {
                 // 이미 로그인된 사용자가 있다면 메인 화면으로 이동
                 Log.d("AutoLogin", "User is already signed in");
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                 startActivity(intent);
                 finish();
             } else {
