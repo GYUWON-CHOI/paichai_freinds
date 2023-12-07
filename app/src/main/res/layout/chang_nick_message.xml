@@ -2,51 +2,41 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#99CCFF">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="665dp"
+        android:layout_height="379dp"
         android:orientation="vertical">
-
+        <!-- 현재 닉네임 표시 -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp"
-            android:background="#FFFFFF"
             android:gravity="center"
             android:text="프로필 관리"
             android:textSize="30dp" />
-        <TextView
-            android:id="@+id/nickTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text=""
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/myImageView" />
-        <!-- 현재 닉네임 표시 -->
+
         <TextView
             android:id="@+id/currentNickTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:layout_marginLeft="50dp"
             android:layout_marginBottom="16dp"
-            android:background="#FFFFFF"
             android:text="현재 닉네임: an unnamed player"
-            android:textSize="20dp" />
+            android:textSize="21dp" />
 
         <!-- 닉네임 변경 -->
         <EditText
             android:id="@+id/nickEditText"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:background="#FFFFFF"
+            android:layout_marginLeft="50dp"
+            android:background="@drawable/edit_coner"
             android:hint="새로운 닉네임 입력"
             android:textSize="20dp" />
 
@@ -54,27 +44,34 @@
             android:id="@+id/changeNickButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginBottom="16dp"
             android:background="@drawable/coner"
             android:text="닉네임 변경" />
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="299dp"
+        android:orientation="vertical">
         <!-- 현재 상태 메시지 표시 -->
         <TextView
             android:id="@+id/currentStatusTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:background="#FFFFFF"
+            android:layout_marginLeft="50dp"
             android:text="현재 상태 메시지: "
-            android:textSize="20dp" />
+            android:textSize="21dp" />
 
         <!-- 상태 메시지 변경 -->
         <EditText
             android:id="@+id/statusEditText"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:background="#FFFFFF"
+            android:layout_marginLeft="50dp"
+            android:background="@drawable/edit_coner"
             android:hint="새로운 상태 메시지 입력"
             android:textSize="20dp" />
 
@@ -82,6 +79,7 @@
             android:id="@+id/changeStatusButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:background="@drawable/coner"
             android:text="상태 메시지 변경" />
     </LinearLayout>
@@ -89,15 +87,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:orientation="vertical">
-
-
         <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomNavi_nick_message"
+            android:id="@+id/bottomNavi_main_info"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
+            android:layout_height="match_parent"
             android:background="@drawable/bottomnavi_coner"
             app:itemIconTint="@color/black"
             app:itemTextColor="@color/black"
@@ -106,5 +100,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:menu="@menu/bottom_menu" />
+
     </LinearLayout>
+
 </LinearLayout>

@@ -16,8 +16,8 @@ public class Profile extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.profile);
-        bottomNavigationView = findViewById(R.id.bottomNavi_profile);
+        setContentView(R.layout.chang_nick_message);
+        bottomNavigationView = findViewById(R.id.bottomNavi_main_info);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.menu_chat:
