@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.myapplication.databinding.FragmentFoodActivityBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -60,7 +61,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // 주변 식당 항목을 클릭했을 때의 동작을 정의합니다.
-                Intent intent = new Intent(HomeActivity.this, MovieActivity.class);
+                Intent intent = new Intent(HomeActivity.this, FoodActivity.class);
                 startActivity(intent);
             }
         });
