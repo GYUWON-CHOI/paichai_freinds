@@ -60,8 +60,11 @@ public class ChatRoomListActivity extends AppCompatActivity {
 
         // 가상의 채팅방 데이터 생성
         List<ChatRoom> chatRooms = new ArrayList<>();
-        chatRooms.add(new ChatRoom("1", "채팅방 1"));
-        chatRooms.add(new ChatRoom("2", "채팅방 2"));
+        chatRooms.add(new ChatRoom("1", "내일 영화 볼 사람?!!"));
+        chatRooms.add(new ChatRoom("2", "오늘 저녁은 삼겹살!"));
+        chatRooms.add(new ChatRoom("3", "야구 좋아하는 사람?"));
+        chatRooms.add(new ChatRoom("4", "pc방 듀오 구해요"));
+        chatRooms.add(new ChatRoom("5", "알바 대타 구해요!!"));
 
         // 어댑터 생성
         final ChatRoomAdapter adapter = new ChatRoomAdapter(this, R.layout.list_item_chat_room, chatRooms);
