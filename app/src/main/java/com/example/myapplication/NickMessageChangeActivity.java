@@ -45,6 +45,7 @@ public class NickMessageChangeActivity extends AppCompatActivity {
                     break;
                 case R.id.menu_party:
                     Intent party = new Intent(getApplicationContext(),MainActivity.class);
+                    startActivity(party);
                     break;
                 case R.id.menu_profile:
                     Intent profile = new Intent(getApplicationContext(), Frag3Activity.class);

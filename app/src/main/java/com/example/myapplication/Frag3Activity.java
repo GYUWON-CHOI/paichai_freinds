@@ -34,6 +34,7 @@ public class Frag3Activity extends AppCompatActivity {
                     break;
                 case R.id.menu_party:
                     Intent party = new Intent(getApplicationContext(),MainActivity.class);
+                    startActivity(party);
                     break;
                 case R.id.menu_profile:
                     // 이미 현재 액티비티이므로 따로 이동할 필요 없음
