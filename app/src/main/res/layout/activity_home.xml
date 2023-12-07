@@ -19,7 +19,8 @@
             android:layout_width="237dp"
             android:layout_height="160dp"
             android:layout_marginRight="20dp"
-            android:background="@drawable/coner">
+            android:background="@drawable/coner"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/mvrk"
@@ -30,6 +31,13 @@
                 android:text="영화 순위"
                 android:textColor="@color/black"
                 android:textSize="25dp" />
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/mv"
+                android:src="@drawable/ic_baseline_movie_24"
+                android:layout_gravity="center"/>
         </LinearLayout>
 
         <LinearLayout

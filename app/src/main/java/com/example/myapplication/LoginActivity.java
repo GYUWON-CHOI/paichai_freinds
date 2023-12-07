@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
                                 // 사용자가 자동 로그인을 선택한 경우, 설정을 저장
                                 saveAutoLoginSetting(true);
                             }
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             startActivity(intent);
                             finish(); // 현재 액티비티 파괴
                         } else {
