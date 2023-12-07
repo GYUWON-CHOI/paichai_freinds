@@ -40,9 +40,12 @@ public class ChatRoomListActivity extends AppCompatActivity {
                     startActivity(chat);
                     break;
                 case R.id.menu_home:
-                    Intent home = new Intent(getApplicationContext(), MainActivity.class);
+                    Intent home = new Intent(getApplicationContext(), HomeActivity.class);
                     startActivity(home);
                     break;
+                case R.id.menu_party:
+                    Intent party = new Intent(getApplicationContext(),MainActivity.class);
+                    startActivity(party);
                 case R.id.menu_profile:
                     Intent profile = new Intent(getApplicationContext(), Frag3Activity.class);
                     startActivity(profile);
