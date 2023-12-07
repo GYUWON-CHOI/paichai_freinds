@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -37,6 +36,9 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        // FirebaseAuth 초기화
+        mFirebaseAuth = FirebaseAuth.getInstance();
 
         // 각 항목의 LinearLayout을 찾아옵니다.
         LinearLayout movieRankLayout = findViewById(R.id.movieRankLayout);
@@ -106,7 +108,6 @@ public class HomeActivity extends AppCompatActivity {
                     Intent profile = new Intent(getApplicationContext(), Frag3Activity.class);
                     startActivity(profile);
                     break;
-
             }
             return false;
         });
@@ -139,13 +140,15 @@ public class HomeActivity extends AppCompatActivity {
                 // 로그아웃 시 자동 로그인 설정 초기화
                 clearAutoLoginSetting();
 
-                mFirebaseAuth.signOut();
-                Toast.makeText(HomeActivity.this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
+                if (mFirebaseAuth != null) {
+                    mFirebaseAuth.signOut();
+                    Toast.makeText(HomeActivity.this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
 
-                // 로그인 화면으로 이동
-                Intent loginIntent = new Intent(HomeActivity.this, LoginActivity.class);
-                startActivity(loginIntent);
-                finish(); // 현재 액티비티 종료
+                    // 로그인 화면으로 이동
+                    Intent loginIntent = new Intent(HomeActivity.this, LoginActivity.class);
+                    startActivity(loginIntent);
+                    finish(); // 현재 액티비티 종료
+                }
                 break;
 
             case R.id.menu_movie:
